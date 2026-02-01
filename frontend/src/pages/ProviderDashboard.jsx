@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllJobs } from "../api/job.api";
+import { getCompanyJobs } from "../api/job.api";
 import JobCard from "../components/JobCard";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -9,14 +9,29 @@ export default function ProviderDashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const userStr = localStorage.getItem("user");
+    if (!userStr) {
+      navigate("/login");
+      return;
+    }
+    const user = JSON.parse(userStr);
+    const identifier = user.email || user.companyEmail;
+
     setLoading(true);
-    getAllJobs()
+    getCompanyJobs(identifier)
       .then((res) => {
         setJobs(res.data.jobs);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
-  }, []);
+      .catch((err) => {
+        console.error("Error fetching company jobs", err);
+        setLoading(false);
+      });
+  }, [navigate]);
+
+  // Calculate Real Stats
+  const totalApplicants = jobs.reduce((acc, job) => acc + (job.peopleIds ? job.peopleIds.length : 0), 0);
+  const avgApplicants = jobs.length > 0 ? (totalApplicants / jobs.length).toFixed(1) : "0.0";
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 p-6 md:p-12">
@@ -44,8 +59,8 @@ export default function ProviderDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {[
             { label: "Active Postings", value: jobs.length, color: "text-indigo-400" },
-            { label: "Total Applicants", value: "42", color: "text-emerald-400" },
-            { label: "Fill Rate", value: "85%", color: "text-amber-400" },
+            { label: "Total Applicants", value: totalApplicants, color: "text-emerald-400" },
+            { label: "Avg. Applicants/Job", value: avgApplicants, color: "text-amber-400" },
           ].map((stat, i) => (
             <div key={i} className="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
               <p className="text-slate-500 text-sm font-medium uppercase tracking-wider">{stat.label}</p>

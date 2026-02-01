@@ -18,3 +18,7 @@ export const recommendJobs = (userId) =>
 // GET /jobs/:jobId/applicants
 export const getApplicants = (jobId) =>
   api.get(`/jobs/${jobId}/applicants`);
+
+// GET /company/jobs?query=email
+export const getCompanyJobs = (query) =>
+  api.get(`/company/jobs?query=${query}`);
