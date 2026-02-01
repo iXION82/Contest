@@ -195,7 +195,7 @@ export default function CreateUser() {
                                 <input name="preferredLocations" placeholder="Remote, New York, London" className={inputStyle} onChange={handleChange} />
                             </div>
                             <div>
-                                <label className={labelStyle}>Expected Salary (₹)</label>
+                                <label className={labelStyle}>Expected Salary per Annum(₹)</label>
                                 <input name="expectedSalary" type="number" placeholder="80000" className={inputStyle} onChange={handleChange} />
                             </div>
                             <div>
