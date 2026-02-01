@@ -90,7 +90,7 @@ export default function ProviderDashboard() {
                 {/* Overlay Action for Provider */}
                 <div className="mt-3 flex gap-2">
                   <button
-                    onClick={() => navigate(`/applicants/${job._id}`)}
+                    onClick={() => navigate(`/jobs/${job._id}/applicants`)}
                     className="flex-1 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold rounded-lg border border-slate-700 transition-colors"
                   >
                     View Applicants

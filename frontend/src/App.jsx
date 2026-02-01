@@ -12,6 +12,8 @@ import Login from "./pages/login";
 import ProviderDashboard from "./pages/ProviderDashboard";
 import AddJob from "./pages/AddJob";
 
+import CandidateProfile from "./pages/CandidateProfile";
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -32,6 +34,7 @@ export default function App() {
 
         {/* Shared */}
         <Route path="/jobs/:jobId/applicants" element={<Applicants />} />
+        <Route path="/applicant/:userId" element={<CandidateProfile />} />
       </Routes>
     </BrowserRouter>
   );
