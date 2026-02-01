@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 export default function Navbar() {
   const location = useLocation();
 
-  
+
   const isActive = (path) => location.pathname === path;
 
   const linkStyle = (path) => `
@@ -21,7 +21,7 @@ export default function Navbar() {
 
           { }
           <div className="flex items-center">
-            <Link to="/" className="flex items-center gap-3 group">
+            <Link to="/jobs" className="flex items-center gap-3 group">
               { }
               <div className="relative w-10 h-10 flex items-center justify-center">
                 <div className="absolute inset-0 bg-indigo-500 rounded-xl rotate-0 group-hover:rotate-12 transition-transform duration-300 opacity-20"></div>
@@ -51,7 +51,7 @@ export default function Navbar() {
 
           { }
           <div className="flex items-center space-x-1 md:space-x-4">
-            <Link to="/" className={linkStyle("/")}>
+            <Link to="/jobs" className={linkStyle("/jobs")}>
               Jobs
             </Link>
             <Link to="/recommend" className={linkStyle("/recommend")}>

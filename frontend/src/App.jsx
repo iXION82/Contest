@@ -21,7 +21,8 @@ export default function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
 
-        <Route path="/" element={<ProfileGuard><Jobs /></ProfileGuard>} />
+        <Route path="/" element={<Login />} />
+        <Route path="/jobs" element={<ProfileGuard><Jobs /></ProfileGuard>} />
         <Route path="/create" element={<ProfileGuard><CreateUser /></ProfileGuard>} />
         <Route path="/recommend" element={<ProfileGuard><RecommendedJobs /></ProfileGuard>} />
         <Route path="/applications" element={<ProfileGuard><Applications /></ProfileGuard>} />

@@ -1,10 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginApiUser, LoginApiCompany } from "../api/auth";
 
 export default function Login() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    const role = localStorage.getItem("role");
+
+    if (user) {
+      if (role === "company") {
+        navigate("/provider");
+      } else {
+        navigate("/jobs");
+      }
+    }
+  }, [navigate]);
 
   const [form, setForm] = useState({
     role: "user",
@@ -35,15 +48,15 @@ export default function Login() {
         });
       }
 
-      
+
       const userData = form.role === "company" ? res.data.company : res.data.user;
 
-      
+
       localStorage.setItem("user", JSON.stringify(userData));
       localStorage.setItem("userId", res.data._id);
       localStorage.setItem("role", form.role);
 
-      
+
       if (form.role === "company") {
         navigate("/provider");
       } else {
