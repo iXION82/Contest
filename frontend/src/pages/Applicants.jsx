@@ -21,7 +21,7 @@ export default function Applicants() {
     <div className="min-h-screen bg-slate-950 p-6 md:p-12 font-sans text-slate-200">
       <div className="max-w-6xl mx-auto">
 
-        {/* Header Section */}
+
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
           <div>
             <Link to="/provider" className="text-indigo-400 text-sm hover:underline flex items-center gap-2 mb-2 font-medium">
@@ -34,11 +34,10 @@ export default function Applicants() {
           </div>
 
           <div className="flex gap-3">
-            {/* Future: Export functionality */}
           </div>
         </div>
 
-        {/* Content Section */}
+
         {loading ? (
           <div className="flex justify-center items-center py-32">
             <div className="relative">

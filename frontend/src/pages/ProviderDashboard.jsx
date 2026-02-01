@@ -29,7 +29,8 @@ export default function ProviderDashboard() {
       });
   }, [navigate]);
 
-  // Calculate Real Stats
+
+
   const totalApplicants = jobs.reduce((acc, job) => acc + (job.peopleIds ? job.peopleIds.length : 0), 0);
   const avgApplicants = jobs.length > 0 ? (totalApplicants / jobs.length).toFixed(1) : "0.0";
 
@@ -37,7 +38,7 @@ export default function ProviderDashboard() {
     <div className="min-h-screen bg-slate-950 text-slate-200 p-6 md:p-12">
       <div className="max-w-7xl mx-auto">
 
-        {/* Header & Main Action */}
+
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
             <h1 className="text-4xl font-extrabold text-white tracking-tight">
@@ -55,7 +56,7 @@ export default function ProviderDashboard() {
           </Link>
         </div>
 
-        {/* Stats Overview Bar */}
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {[
             { label: "Active Postings", value: jobs.length, color: "text-indigo-400" },
@@ -74,7 +75,7 @@ export default function ProviderDashboard() {
           <div className="h-px bg-slate-800 flex-grow"></div>
         </div>
 
-        {/* Jobs Grid */}
+
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3].map((n) => (
@@ -87,7 +88,6 @@ export default function ProviderDashboard() {
               <div key={job._id} className="relative group">
                 <JobCard job={job} />
 
-                {/* Overlay Action for Provider */}
                 <div className="mt-3 flex gap-2">
                   <button
                     onClick={() => navigate(`/jobs/${job._id}/applicants`)}
