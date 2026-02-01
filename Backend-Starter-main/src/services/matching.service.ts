@@ -53,7 +53,7 @@ export const findMatches = async (user: IUser): Promise<IJob[]> => {
     });
 
     const notAppliedJobs = scoredJobs.filter(
-        (job) => !user.appliedJobs.includes(job.jobId)
+        (job) => !user.appliedJobs.includes(job._id.toString())
     );
 
     notAppliedJobs.sort((a, b) => b.score - a.score);

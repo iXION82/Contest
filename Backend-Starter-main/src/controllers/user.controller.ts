@@ -4,12 +4,12 @@ import User, { type IUser } from "../models/user.model.js";
 
 export const createUser = async (req: Request, res: Response) => {
     try {
-        const userData: IUser = req.body;
+        const userData = req.body;
 
         const newUser = new User(userData);
         await newUser.save();
 
-        res.status(201).json({ message: "User created successfully", user: newUser });
+        res.status(201).json({ message: "User created successfully", user: newUser, _id: newUser._id });
     } catch (error: any) {
         res.status(500).json({ message: "Error creating user", error: error.message });
     }
@@ -33,26 +33,54 @@ export const updateUser = async (req: Request, res: Response) => {
     } catch (error: any) {
         res.status(500).json({ message: "Error updating user", error: error.message });
     }
-}
+};
+
 
 export const getUserApplications = async (req: Request, res: Response) => {
     try {
-        const { userId } = req.params;
-        if (!userId) {
-            return res.status(400).json({ message: "UserId is required" });
-        }
+        const { id } = req.params;
+        const user = await User.findById(id);
 
-        const user = await User.findOne({ userId });
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
 
-        
-        const jobs = await import("../models/job.model.js").then(m => m.default.find({ jobId: { $in: user.appliedJobs } }));
-
+        const jobs = await import("../models/job.model.js").then(m => m.default.find({ _id: { $in: user.appliedJobs } }));
         res.status(200).json({ applications: jobs });
     } catch (error: any) {
         res.status(500).json({ message: "Error fetching applications", error: error.message });
+    }
+};
+
+export const getUserProfile = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json({ user });
+    } catch (error: any) {
+        res.status(500).json({ message: "Error fetching profile", error: error.message });
+    }
+};
+export const parseUserFromFiles = async (
+    req: Request,
+    res: Response
+) => {
+    try {
+        const files = req.files as Express.Multer.File[];
+        const links = JSON.parse(req.body.links || "[]");
+
+        res.json({
+            message: "Files and links received",
+            filesCount: files?.length || 0,
+            links,
+        });
+    } catch (err: any) {
+        res.status(400).json({ error: err.message });
     }
 };
 

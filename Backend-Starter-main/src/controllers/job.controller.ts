@@ -9,7 +9,7 @@ export const addJob = async (req: Request, res: Response) => {
         const jobData = req.body;
         const newJob = new Job(jobData);
         await newJob.save();
-        res.status(201).json({ message: "Job added successfully", job: newJob });
+        res.status(201).json({ message: "Job added successfully", job: newJob, _id: newJob._id });
     } catch (error: any) {
         res.status(500).json({ message: "Error adding job", error: error.message });
     }
@@ -17,11 +17,11 @@ export const addJob = async (req: Request, res: Response) => {
 
 export const recommendJobs = async (req: Request, res: Response) => {
     try {
-        const { userId } = req.params;
-        if (!userId) {
-            return res.status(400).json({ message: "UserId is required" });
+        const { id } = req.params;
+        if (!id) {
+            return res.status(400).json({ message: "User ID is required" });
         }
-        const user = await User.findOne({ userId: userId as string });
+        const user = await User.findById(id);
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
@@ -42,7 +42,7 @@ export const applyJob = async (req: Request, res: Response) => {
             return res.status(400).json({ message: "UserId and JobId are required" });
         }
 
-        const user = await User.findOne({ userId });
+        const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -51,19 +51,19 @@ export const applyJob = async (req: Request, res: Response) => {
             return res.status(400).json({ message: "Already applied to this job" });
         }
 
-        await User.findOneAndUpdate(
-            { userId },
+        await User.findByIdAndUpdate(
+            userId,
             { $addToSet: { appliedJobs: jobId } }
         );
 
-        const job = await Job.findOneAndUpdate(
-            { jobId },
+        const job = await Job.findByIdAndUpdate(
+            jobId,
             { $addToSet: { peopleIds: userId } }
         );
 
         if (!job) {
-            await User.findOneAndUpdate(
-                { userId },
+            await User.findByIdAndUpdate(
+                userId,
                 { $pull: { appliedJobs: jobId } }
             );
             return res.status(404).json({ message: "Job not found" });
@@ -87,17 +87,17 @@ export const getAllJobs = async (req: Request, res: Response) => {
 
 export const getJobApplicants = async (req: Request, res: Response) => {
     try {
-        const { jobId } = req.params;
-        if (!jobId) {
-            return res.status(400).json({ message: "JobId is required" });
+        const { id } = req.params;
+        if (!id) {
+            return res.status(400).json({ message: "Job ID is required" });
         }
-        const job = await Job.findOne({ jobId: jobId });
+        const job = await Job.findById(id);
 
         if (!job) {
             return res.status(404).json({ message: "Job not found" });
         }
 
-        const applicants = await User.find({ userId: { $in: job.peopleIds } });
+        const applicants = await User.find({ _id: { $in: job.peopleIds } });
         res.status(200).json({ applicants });
     } catch (error: any) {
         res.status(500).json({ message: "Error fetching applicants", error: error.message });
