@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCompanyJobs } from "../api/job.api";
+import { getCompanyJobs, deleteJob } from "../api/job.api";
 import JobCard from "../components/JobCard";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -95,7 +95,19 @@ export default function ProviderDashboard() {
                   >
                     View Applicants
                   </button>
-                  <button className="px-3 py-2 bg-slate-800 hover:bg-red-900/30 hover:text-red-400 text-slate-500 rounded-lg border border-slate-700 transition-colors">
+                  <button
+                    onClick={async () => {
+                      if (window.confirm("Are you sure you want to delete this job?")) {
+                        try {
+                          await deleteJob(job._id);
+                          setJobs(jobs.filter(j => j._id !== job._id));
+                        } catch (err) {
+                          alert("Failed to delete job");
+                        }
+                      }
+                    }}
+                    className="px-3 py-2 bg-slate-800 hover:bg-red-900/30 hover:text-red-400 text-slate-500 rounded-lg border border-slate-700 transition-colors"
+                  >
                     🗑️
                   </button>
                 </div>

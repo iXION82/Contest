@@ -22,3 +22,7 @@ export const getApplicants = (jobId) =>
 // GET /company/jobs?query=email
 export const getCompanyJobs = (query) =>
   api.get(`/company/jobs?query=${query}`);
+
+// DELETE /jobs/:id
+export const deleteJob = (jobId) =>
+  api.delete(`/jobs/${jobId}`);

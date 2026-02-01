@@ -124,4 +124,19 @@ export const getCompanyJobs = async (req: Request, res: Response) => {
     }
 };
 
+export const deleteJob = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const deletedJob = await Job.findByIdAndDelete(id);
+
+        if (!deletedJob) {
+            return res.status(404).json({ message: "Job not found" });
+        }
+
+        res.status(200).json({ message: "Job deleted successfully" });
+    } catch (error: any) {
+        res.status(500).json({ message: "Error deleting job", error: error.message });
+    }
+};
+
 
