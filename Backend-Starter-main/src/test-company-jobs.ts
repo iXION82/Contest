@@ -36,9 +36,9 @@ async function runTests() {
         console.log('1. Creating Company Jobs...');
         for (const job of companyJobs) {
             try {
-                // Remove the explicit jobId if present in the object locally, though interface doesn't enforce it?
-                // Actually the array has jobId but we should just let mongo create it.
-                // We will destructure it out to avoid sending it if the model rejects it or if we just want to be clean.
+                
+                
+                
                 const res = await axios.post(`${API_URL}/jobs/add`, job);
                 console.log(`✅ Job created, ID: ${res.data._id}`);
             } catch (e: any) {

@@ -47,11 +47,11 @@ export default function CandidateProfile() {
                 </button>
 
                 <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
-                    {/* Decorative Background */}
+                    { }
                     <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/10 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
 
                     <div className="relative">
-                        {/* Header */}
+                        { }
                         <div className="flex flex-col md:flex-row items-center md:items-start gap-8 border-b border-slate-800 pb-10 mb-10">
                             <div className="h-32 w-32 rounded-3xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-5xl font-bold text-white shadow-2xl shadow-indigo-500/20">
                                 {user.name?.charAt(0).toUpperCase()}
@@ -75,10 +75,10 @@ export default function CandidateProfile() {
                             </div>
                         </div>
 
-                        {/* Details Grid */}
+                        { }
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
 
-                            {/* Skills */}
+                            { }
                             <div>
                                 <h3 className="text-sm font-bold text-indigo-400 uppercase tracking-widest mb-4">Core Skills</h3>
                                 <div className="flex flex-wrap gap-2">
@@ -90,7 +90,7 @@ export default function CandidateProfile() {
                                 </div>
                             </div>
 
-                            {/* Preferences */}
+                            { }
                             <div>
                                 <h3 className="text-sm font-bold text-indigo-400 uppercase tracking-widest mb-4">Career Preferences</h3>
                                 <ul className="space-y-3">
@@ -105,7 +105,7 @@ export default function CandidateProfile() {
                                 </ul>
                             </div>
 
-                            {/* Projects */}
+                            { }
                             <div className="md:col-span-2">
                                 <h3 className="text-sm font-bold text-indigo-400 uppercase tracking-widest mb-4">Featured Projects</h3>
                                 {user.projectLinks?.length > 0 ? (

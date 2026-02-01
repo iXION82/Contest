@@ -7,7 +7,7 @@ import AnimatedPopup from "../components/AnimatedPopup";
 export default function RecommendedJobs() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [popup, setPopup] = useState(null); // { message, type }
+  const [popup, setPopup] = useState(null); 
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
@@ -33,10 +33,10 @@ export default function RecommendedJobs() {
     try {
       await applyJob(userId, jobId);
 
-      // Show success popup
+      
       setPopup({ message: "Application submitted successfully!", type: "success" });
 
-      // Rerender/Update State: Remove the job from the list to reflect "applied" status
+      
       setJobs((prevJobs) => prevJobs.filter(job => job._id !== jobId));
 
     } catch (err) {
@@ -51,7 +51,7 @@ export default function RecommendedJobs() {
     let successCount = 0;
     const failedIds = [];
 
-    // Optimistic update or wait? Let's wait to be sure
+    
     for (const job of jobs) {
       try {
         await applyJob(userId, job._id);
@@ -64,7 +64,7 @@ export default function RecommendedJobs() {
 
     setPopup({ message: `Successfully applied to ${successCount} jobs!`, type: "success" });
 
-    // Update state to remove successfully applied jobs
+    
     setJobs((prevJobs) => prevJobs.filter(job => failedIds.includes(job._id)));
   };
 
@@ -74,7 +74,7 @@ export default function RecommendedJobs() {
         <Navbar />
       </div>
 
-      {/* Pop Up Notification */}
+      { }
       {popup && (
         <AnimatedPopup
           message={popup.message}
@@ -86,7 +86,7 @@ export default function RecommendedJobs() {
       <div className="min-h-screen bg-slate-950 p-6 md:p-12">
         <div className="max-w-7xl mx-auto">
 
-          {/* Header with AI/Recommendation Context */}
+          { }
           <div className="mb-12 relative flex items-end justify-between animate-fade-in">
             <div>
               <div className="absolute -top-10 -left-10 w-40 h-40 bg-indigo-600/10 blur-[100px] rounded-full"></div>

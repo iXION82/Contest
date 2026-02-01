@@ -53,7 +53,7 @@ export default function AddJob() {
     <div className="min-h-screen bg-slate-950 text-slate-200 p-4 md:p-8">
       <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-        {/* Left Sidebar: Instructions */}
+        { }
         <div className="lg:col-span-1 space-y-6">
           <div className="bg-indigo-600/10 border border-indigo-500/20 p-6 rounded-2xl">
             <h2 className="text-2xl font-bold text-white mb-4">Post a New Opening</h2>
@@ -69,11 +69,11 @@ export default function AddJob() {
           </div>
         </div>
 
-        {/* Right Side: Form */}
+        { }
         <form onSubmit={handleSubmit} className="lg:col-span-2 bg-slate-900/50 border border-slate-800 p-8 rounded-2xl shadow-xl space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            {/* Job Identity */}
+            { }
             <div className="md:col-span-2 flex items-center gap-4 mb-2">
               <div className="h-8 w-1 bg-indigo-500 rounded-full"></div>
               <h3 className="text-lg font-bold text-white">Job Details</h3>
@@ -96,7 +96,7 @@ export default function AddJob() {
               <input name="jobType" placeholder="Full-time / Remote" className={inputStyle} onChange={handleChange} required />
             </div>
 
-            {/* Compensation & Experience */}
+            { }
             <div className="md:col-span-2 flex items-center gap-4 mt-4 mb-2">
               <div className="h-8 w-1 bg-indigo-500 rounded-full"></div>
               <h3 className="text-lg font-bold text-white">Requirements & Pay</h3>

@@ -31,7 +31,7 @@ const testCompany = async () => {
         console.log("✅ Company created successfully:");
         console.log(savedCompany);
 
-        // Verify we can find it
+        
         const foundCompany = await Company.findById(savedCompany._id);
         if (foundCompany) {
             console.log("✅ Company retrieved successfully by ID");

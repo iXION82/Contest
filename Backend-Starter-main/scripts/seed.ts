@@ -72,7 +72,7 @@ const seedData = async () => {
             title: faker.person.jobTitle(),
             company: company.name,
             companyEmail: company.email,
-            companyPassword: company.password || "password123", // Fallback if password not in object (it is in model)
+            companyPassword: company.password || "password123", 
             requiredSkills: faker.helpers.arrayElements(skillsList, { min: 2, max: 4 }),
             minExperience: faker.number.int({ min: 0, max: 5 }),
             salary: faker.number.int({ min: 50000, max: 200000 }),
@@ -84,7 +84,7 @@ const seedData = async () => {
         const savedJob = await job.save();
         jobs.push(savedJob);
 
-        // Update company with job ID
+        
         company.jobsIds.push(savedJob._id.toString());
         await company.save();
     }

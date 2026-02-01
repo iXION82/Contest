@@ -22,7 +22,7 @@ const testPdfParse = async () => {
         }
 
         form.append("files", fs.createReadStream(filePath), { filename: 'test-resume.pdf', contentType: 'application/pdf' });
-        form.append("links", JSON.stringify([])); // Empty links for now
+        form.append("links", JSON.stringify([])); 
 
         console.log("Sending PDF to /user/parse...");
         const res = await axios.post(`${API_URL}/user/parse`, form, {

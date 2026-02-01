@@ -2,7 +2,7 @@ export default function JobCard({ job, onApply }) {
   return (
     <div className="group relative bg-slate-900 border border-slate-800 p-6 rounded-2xl transition-all duration-300 hover:border-indigo-500/50 hover:shadow-2xl hover:shadow-indigo-500/10">
 
-      {/* Header: Title & Salary */}
+      { }
       <div className="flex justify-between items-start mb-4">
         <div>
           <h3 className="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">
@@ -16,7 +16,7 @@ export default function JobCard({ job, onApply }) {
         </div>
       </div>
 
-      {/* Meta Details Grid */}
+      { }
       <div className="grid grid-cols-2 gap-y-3 gap-x-4 mb-6">
         <div className="flex items-center text-slate-400 text-sm">
           <span className="mr-2 text-slate-500">📍</span>
@@ -28,7 +28,7 @@ export default function JobCard({ job, onApply }) {
         </div>
       </div>
 
-      {/* Skills Tags */}
+      { }
       <div className="flex flex-wrap gap-2 mb-6">
         {job.requiredSkills.map((skill, index) => (
           <span
@@ -40,7 +40,7 @@ export default function JobCard({ job, onApply }) {
         ))}
       </div>
 
-      {/* Action Section */}
+      { }
       <div className="flex items-center justify-between pt-4 border-t border-slate-800">
         <span className="text-xs text-slate-500 font-light">Posted 2 days ago</span>
 

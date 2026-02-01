@@ -60,7 +60,7 @@ export default function Signup() {
   return (
     <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6">
       <div className="w-full max-w-lg">
-        {/* Role Toggle */}
+        { }
         <div className="flex bg-slate-900 p-1.5 rounded-2xl mb-8 border border-slate-800 shadow-inner">
           <button
             type="button"
@@ -84,7 +84,7 @@ export default function Signup() {
           </button>
         </div>
 
-        {/* Card */}
+        { }
         <div className="bg-slate-900 border border-slate-800 p-8 rounded-3xl">
           <h2 className="text-3xl font-bold text-white mb-2">
             Create Account

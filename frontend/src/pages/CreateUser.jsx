@@ -9,7 +9,7 @@ export default function CreateUser() {
 
     const [file, setFile] = useState(null);
     const [form, setForm] = useState({
-        name: "", email: "", // email not used for update but kept for consistency
+        name: "", email: "", 
         age: "", experience: "",
         skills: "", totalProjects: "", projectLinks: "",
         preferredRoles: "", preferredLocations: "",
@@ -41,28 +41,28 @@ export default function CreateUser() {
             const formData = new FormData();
             formData.append("userId", userId);
 
-            // Append Manual Data
-            // We append only if value exists to allow "undefined" to be skipped in backend if we wanted, 
-            // but here we send empty strings as empty strings which is fine (Backend filters empty strings)
+            
+            
+            
             Object.keys(form).forEach(key => {
-                if (key !== "email" && key !== "password") { // email/pass typically not updated here
+                if (key !== "email" && key !== "password") { 
                     formData.append(key, form[key]);
                 }
             });
 
-            // Append File
+            
             if (file) {
                 formData.append("files", file);
             }
 
             const res = await uploadProfileData(formData);
 
-            // Update local storage
+            
             const userStr = localStorage.getItem("user");
             if (userStr) {
                 const user = JSON.parse(userStr);
                 user.isProfileComplete = true;
-                // Optionally update other fields from response
+                
                 if (res.data.user) {
                     localStorage.setItem("user", JSON.stringify({ ...user, ...res.data.user }));
                 } else {
@@ -94,10 +94,10 @@ export default function CreateUser() {
             <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6 selection:bg-indigo-500/30">
                 <div className="w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden relative animate-fade-in-up">
 
-                    {/* Background decoration */}
+                    { }
                     <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-600/10 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
 
-                    {/* Header Section */}
+                    { }
                     <div className="px-8 pt-10 pb-4 border-b border-slate-800/50 bg-slate-900/50 backdrop-blur-sm sticky top-0 z-10">
                         <h2 className="text-3xl font-bold text-white tracking-tight flex items-center gap-3">
                             🚀 Complete Your Profile
@@ -112,7 +112,7 @@ export default function CreateUser() {
 
                     <form onSubmit={handleSubmit} className="p-8 space-y-10">
 
-                        {/* File Upload Section */}
+                        { }
                         <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 p-6 rounded-xl border border-indigo-500/30 ring-1 ring-indigo-500/10">
                             <h3 className="text-white font-bold mb-4 flex items-center gap-2">
                                 📄 Smart Resume Upload <span className="text-xs bg-indigo-500 text-white px-2 py-0.5 rounded-full">AI Powered</span>
@@ -136,7 +136,7 @@ export default function CreateUser() {
                             </div>
                         </div>
 
-                        {/* Section 1: Basic Info */}
+                        { }
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-4 md:col-span-2">
                                 <h3 className="text-slate-500 font-semibold uppercase tracking-wider text-xs">Personal Information</h3>
@@ -157,7 +157,7 @@ export default function CreateUser() {
                             </div>
                         </div>
 
-                        {/* Section 2: Professional Details */}
+                        { }
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-4 md:col-span-2">
                                 <h3 className="text-slate-500 font-semibold uppercase tracking-wider text-xs">Professional Portfolio</h3>
@@ -179,7 +179,7 @@ export default function CreateUser() {
                             </div>
                         </div>
 
-                        {/* Section 3: Preferences */}
+                        { }
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-4 md:col-span-2">
                                 <h3 className="text-slate-500 font-semibold uppercase tracking-wider text-xs">Career Preferences</h3>
@@ -204,7 +204,7 @@ export default function CreateUser() {
                             </div>
                         </div>
 
-                        {/* Action Button */}
+                        { }
                         <div className="pt-6 border-t border-slate-800">
                             <button
                                 type="submit"

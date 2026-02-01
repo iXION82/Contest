@@ -17,17 +17,17 @@ export class LinkExtractionService {
                 return `[Skipped Link: ${url} - Unsupported Content-Type]`;
             }
 
-            // Simple HTML tag stripping (for now, better to use cheerio if extracting mainly text)
-            // But user said "Extract text". Rough extraction is fine for AI processing.
+            
+            
             const html = response.data;
             if (typeof html === "string") {
-                // Remove script and style tags
+                
                 const cleanText = html.replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gm, "")
                     .replace(/<style\b[^>]*>([\s\S]*?)<\/style>/gm, "")
                     .replace(/<[^>]+>/g, " ")
                     .replace(/\s+/g, " ")
                     .trim();
-                return cleanText.substring(0, 10000); // Limit context
+                return cleanText.substring(0, 10000); 
             }
 
             return String(html).substring(0, 10000);

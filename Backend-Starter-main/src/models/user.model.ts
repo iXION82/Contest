@@ -12,7 +12,7 @@ export interface IUser extends Document {
     preferredRoles: string[];
     preferredLocations: string[];
     expectedSalary?: number;
-    jobType?: string; // full-time, part-time, contract
+    jobType?: string; 
     location?: string;
     preferredJobTypes: string[];
     appliedJobs: string[];

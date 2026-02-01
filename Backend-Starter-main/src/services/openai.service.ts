@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY || "dummy-key-for-now", // Prevent crash on init if missing
+    apiKey: process.env.OPENAI_API_KEY || "dummy-key-for-now", 
 });
 
 export class OpenAIService {

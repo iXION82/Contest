@@ -97,20 +97,20 @@ export const completeUserProfile = async (
     try {
         console.log("completeUserProfile called");
 
-        // 1. Get User ID and Manual Data
+        
         const { userId, ...manualData } = req.body;
         if (!userId) {
             return res.status(400).json({ message: "UserId is required" });
         }
 
         const files = req.files as Express.Multer.File[];
-        // Parse links if provided, handle both stringified JSON or direct array if middleware allows (multer sends body as strings mostly)
+        
         let links: string[] = [];
         try {
             if (manualData.links) {
                 links = JSON.parse(manualData.links);
             } else if (manualData.projectLinks) {
-                // Fallback if frontend sends projectLinks as string/array directly
+                
                 links = Array.isArray(manualData.projectLinks) ? manualData.projectLinks : manualData.projectLinks.split(',').map((l: string) => l.trim());
             }
         } catch (e) {
@@ -119,7 +119,7 @@ export const completeUserProfile = async (
 
         let extractedText = "";
 
-        // 2. Extract Text from Files (Resume)
+        
         if (files && files.length > 0) {
             for (const file of files) {
                 if (file.mimetype === "application/pdf") {
@@ -133,7 +133,7 @@ export const completeUserProfile = async (
             }
         }
 
-        // 3. Extract Text from Links
+        
         if (links && links.length > 0) {
             for (const link of links) {
                 if (typeof link === "string" && link.startsWith("http")) {
@@ -147,7 +147,7 @@ export const completeUserProfile = async (
             }
         }
 
-        // 4. Get AI Data (if text exists)
+        
         let aiData: any = {};
         if (extractedText.trim()) {
             console.log("Sending profiling text to OpenAI...", extractedText.length, "chars");
@@ -159,12 +159,12 @@ export const completeUserProfile = async (
             }
         }
 
-        // 5. Merge Data: Manual overrides AI
-        // We only take AI values if Manual value is missing/empty
+        
+        
         const cleanManualData: any = {};
         Object.keys(manualData).forEach(key => {
             if (manualData[key] !== undefined && manualData[key] !== "" && manualData[key] !== "null") {
-                // Try to parse numbers/arrays if they came as strings from FormData
+                
                 if (!isNaN(Number(manualData[key])) && key !== 'phoneNumber' && key !== 'password') {
                     cleanManualData[key] = Number(manualData[key]);
                 } else if (typeof manualData[key] === 'string' && (manualData[key].includes(',') || key.includes('Skills') || key.includes('Roles'))) {
@@ -175,10 +175,10 @@ export const completeUserProfile = async (
             }
         });
 
-        // Smart Merge
+        
         const finalData = { ...aiData, ...cleanManualData, isProfileComplete: true };
 
-        // 6. Update User
+        
         const updatedUser = await User.findByIdAndUpdate(userId, finalData, { new: true });
 
         if (!updatedUser) {

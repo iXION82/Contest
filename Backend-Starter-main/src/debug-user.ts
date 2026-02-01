@@ -28,12 +28,12 @@ async function run() {
         if (typeof res.data._id === 'string' && res.data._id.length > 10) {
             console.log('✅ ID looks valid');
 
-            // Try fetching profile
+            
             console.log('Fetching profile with ID:', res.data._id);
             const prof = await axios.get(`${API_URL}/user/profile/${res.data._id}`);
             console.log('Profile:', JSON.stringify(prof.data, null, 2));
 
-            // Try fetching profile with NAME (to see if it fails)
+            
             try {
                 console.log('Fetching profile with Name (expect fail):');
                 await axios.get(`${API_URL}/user/profile/${testUser.name}`);

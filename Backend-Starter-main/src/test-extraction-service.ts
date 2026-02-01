@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 
 const test = async () => {
     try {
-        // Adjust path to root where test-resume.pdf is
+        
         const pdfPath = path.join(__dirname, "../test-resume.pdf");
         console.log("Reading PDF from:", pdfPath);
 

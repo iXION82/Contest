@@ -44,7 +44,7 @@ export default function Jobs() {
       )}
 
       <div className="min-h-screen bg-slate-950 text-slate-200">
-        {/* Hero Section */}
+        { }
         <div className="bg-slate-900 border-b border-slate-800 py-16 px-6 animate-fade-in">
           <div className="max-w-7xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 tracking-tight">
@@ -56,7 +56,7 @@ export default function Jobs() {
           </div>
         </div>
 
-        {/* Content Area */}
+        { }
         <main className="max-w-7xl mx-auto px-6 py-12">
           <div className="flex items-center justify-between mb-8 animate-fade-in animation-delay-100">
             <h2 className="text-2xl font-bold text-white">Latest Openings</h2>
@@ -67,14 +67,14 @@ export default function Jobs() {
           </div>
 
           {loading ? (
-            /* Loading State */
+             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3, 4, 5, 6].map((n) => (
                 <div key={n} className="h-64 bg-slate-900 animate-pulse rounded-2xl border border-slate-800"></div>
               ))}
             </div>
           ) : jobs.length > 0 ? (
-            /* Job Grid */
+             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in-up animation-delay-200">
               {jobs.map((job) => (
                 <JobCard
@@ -85,7 +85,7 @@ export default function Jobs() {
               ))}
             </div>
           ) : (
-            /* Empty State */
+             
             <div className="text-center py-20 bg-slate-900/50 rounded-3xl border border-dashed border-slate-800 animate-fade-in">
               <h3 className="text-xl font-medium text-slate-400">No jobs found matching your criteria.</h3>
             </div>
