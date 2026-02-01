@@ -32,7 +32,6 @@ const testJobs = [
         description: 'We need a senior dev.'
     },
     {
-        jobId: 'job2',
         title: 'Junior Backend Developer',
         company: 'Startup Inc',
         companyEmail: 'jobs@startup.inc',
@@ -45,7 +44,6 @@ const testJobs = [
         description: 'Entry level backend role.'
     },
     {
-        jobId: 'job3',
         title: 'Frontend Developer',
         company: 'Web Studio',
         companyEmail: 'careers@webstudio.com',
@@ -58,7 +56,6 @@ const testJobs = [
         description: 'Frontend role.'
     },
     {
-        jobId: 'job4',
         title: 'DevOps Engineer',
         company: 'Cloud Systems',
         companyEmail: 'hr@cloudsystems.io',
@@ -71,7 +68,6 @@ const testJobs = [
         description: 'Infrastructure role.'
     },
     {
-        jobId: 'job5',
         title: 'Backend Intern',
         company: 'Tech Corp',
         companyEmail: 'tech@corp.com',
@@ -99,10 +95,6 @@ async function runTests() {
             console.log('✅ User created, ID:', userId);
         } catch (e: any) {
             console.log('⚠️ User creation failed:', e.response?.data?.message || e.message);
-            // If failed, likely exists, so we might need to fetch it or just fail. 
-            // For simplicity in this refactor test, we assume creating new or we'd need a way to get ID.
-            // Since we removed userId, we can't easily query by it unless email is unique.
-            // Let's assume clean DB or unique email handling.
         }
 
         console.log('2. Creating Jobs...');

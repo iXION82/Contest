@@ -4,7 +4,6 @@ const API_URL = 'http://localhost:5000';
 
 const companyJobs = [
     {
-        jobId: 'cjob1',
         title: 'DevOps Lead',
         company: 'Special Corp',
         companyEmail: 'jobs@special.com',
@@ -17,7 +16,6 @@ const companyJobs = [
         description: 'Lead role.'
     },
     {
-        jobId: 'cjob2',
         title: 'Backend Dev',
         company: 'Special Corp',
         companyEmail: 'jobs@special.com',
@@ -41,8 +39,7 @@ async function runTests() {
                 // Remove the explicit jobId if present in the object locally, though interface doesn't enforce it?
                 // Actually the array has jobId but we should just let mongo create it.
                 // We will destructure it out to avoid sending it if the model rejects it or if we just want to be clean.
-                const { jobId, ...jobData } = job as any;
-                const res = await axios.post(`${API_URL}/jobs/add`, jobData);
+                const res = await axios.post(`${API_URL}/jobs/add`, job);
                 console.log(`✅ Job created, ID: ${res.data._id}`);
             } catch (e: any) {
                 console.log(`⚠️ Job creation failed:`, e.response?.data?.message || e.message);
