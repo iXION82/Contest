@@ -87,7 +87,7 @@ export default function RecommendedJobs() {
         <div className="max-w-7xl mx-auto">
 
           {/* Header with AI/Recommendation Context */}
-          <div className="mb-12 relative flex items-end justify-between">
+          <div className="mb-12 relative flex items-end justify-between animate-fade-in">
             <div>
               <div className="absolute -top-10 -left-10 w-40 h-40 bg-indigo-600/10 blur-[100px] rounded-full"></div>
 
@@ -124,7 +124,7 @@ export default function RecommendedJobs() {
               ))}
             </div>
           ) : jobs.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in-up animation-delay-200">
               {jobs.map((job) => (
                 <div key={job._id} className="relative transition-transform duration-300 hover:-translate-y-2">
                   {/* Decorative Match Label */}

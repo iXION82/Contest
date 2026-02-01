@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { getAllJobs, applyJob } from "../api/job.api";
 import JobCard from "../components/JobCard";
 import Navbar from "../components/Navbar";
+import AnimatedPopup from "../components/AnimatedPopup";
+
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [popup, setPopup] = useState(null);
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
@@ -20,9 +23,9 @@ export default function Jobs() {
   const handleApply = async (jobId) => {
     try {
       await applyJob(userId, jobId);
-      alert("Applied successfully!");
+      setPopup({ message: "Applied successfully!", type: "success" });
     } catch (err) {
-      alert(err.response?.data?.message || "Error applying for job");
+      setPopup({ message: err.response?.data?.message || "Error applying for job", type: "error" });
     }
   };
 
@@ -31,9 +34,18 @@ export default function Jobs() {
       <div>
         <Navbar />
       </div>
+
+      {popup && (
+        <AnimatedPopup
+          message={popup.message}
+          type={popup.type}
+          onClose={() => setPopup(null)}
+        />
+      )}
+
       <div className="min-h-screen bg-slate-950 text-slate-200">
         {/* Hero Section */}
-        <div className="bg-slate-900 border-b border-slate-800 py-16 px-6">
+        <div className="bg-slate-900 border-b border-slate-800 py-16 px-6 animate-fade-in">
           <div className="max-w-7xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 tracking-tight">
               Find your next <span className="text-indigo-500 underline decoration-indigo-500/30">dream job</span>
@@ -46,7 +58,7 @@ export default function Jobs() {
 
         {/* Content Area */}
         <main className="max-w-7xl mx-auto px-6 py-12">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center justify-between mb-8 animate-fade-in animation-delay-100">
             <h2 className="text-2xl font-bold text-white">Latest Openings</h2>
             <div className="flex items-center gap-2 text-sm text-slate-500">
               <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
@@ -63,7 +75,7 @@ export default function Jobs() {
             </div>
           ) : jobs.length > 0 ? (
             /* Job Grid */
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in-up animation-delay-200">
               {jobs.map((job) => (
                 <JobCard
                   key={job._id}
@@ -74,7 +86,7 @@ export default function Jobs() {
             </div>
           ) : (
             /* Empty State */
-            <div className="text-center py-20 bg-slate-900/50 rounded-3xl border border-dashed border-slate-800">
+            <div className="text-center py-20 bg-slate-900/50 rounded-3xl border border-dashed border-slate-800 animate-fade-in">
               <h3 className="text-xl font-medium text-slate-400">No jobs found matching your criteria.</h3>
             </div>
           )}

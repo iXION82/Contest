@@ -39,7 +39,7 @@ export default function ProviderDashboard() {
       <div className="max-w-7xl mx-auto">
 
 
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 animate-fade-in">
           <div>
             <h1 className="text-4xl font-extrabold text-white tracking-tight">
               Provider <span className="text-indigo-500">Dashboard</span>
@@ -57,7 +57,7 @@ export default function ProviderDashboard() {
         </div>
 
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 animate-fade-in animation-delay-100">
           {[
             { label: "Active Postings", value: jobs.length, color: "text-indigo-400" },
             { label: "Total Applicants", value: totalApplicants, color: "text-emerald-400" },
@@ -70,7 +70,7 @@ export default function ProviderDashboard() {
           ))}
         </div>
 
-        <div className="flex items-center gap-4 mb-6">
+        <div className="flex items-center gap-4 mb-6 animate-fade-in animation-delay-200">
           <h3 className="text-xl font-bold text-white">Your Postings</h3>
           <div className="h-px bg-slate-800 flex-grow"></div>
         </div>
@@ -83,7 +83,7 @@ export default function ProviderDashboard() {
             ))}
           </div>
         ) : jobs.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in-up animation-delay-300">
             {jobs.map((job) => (
               <div key={job._id} className="relative group">
                 <JobCard job={job} />

@@ -48,16 +48,19 @@ const seedData = async () => {
     console.log(`Created ${users.length} users.`);
 
     console.log("Seeding Companies...");
+    console.log("Seeding Companies...");
     const companies = [];
     for (let i = 0; i < 5; i++) {
         const companyName = faker.company.name();
         const companyEmail = faker.internet.email({ firstName: companyName });
-        companies.push({
+
+        const company = new Company({
             name: companyName,
             email: companyEmail,
             password: "password123",
-            website: faker.internet.url()
+            jobsIds: []
         });
+        companies.push(await company.save());
     }
 
     console.log("Seeding Jobs...");
@@ -69,7 +72,7 @@ const seedData = async () => {
             title: faker.person.jobTitle(),
             company: company.name,
             companyEmail: company.email,
-            companyPassword: company.password,
+            companyPassword: company.password || "password123", // Fallback if password not in object (it is in model)
             requiredSkills: faker.helpers.arrayElements(skillsList, { min: 2, max: 4 }),
             minExperience: faker.number.int({ min: 0, max: 5 }),
             salary: faker.number.int({ min: 50000, max: 200000 }),
@@ -78,7 +81,12 @@ const seedData = async () => {
             description: faker.lorem.paragraph(),
             peopleIds: [],
         });
-        jobs.push(await job.save());
+        const savedJob = await job.save();
+        jobs.push(savedJob);
+
+        // Update company with job ID
+        company.jobsIds.push(savedJob._id.toString());
+        await company.save();
     }
     console.log(`Created ${jobs.length} jobs.`);
 

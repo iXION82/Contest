@@ -92,7 +92,7 @@ export default function CreateUser() {
                 <Navbar />
             </div>
             <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6 selection:bg-indigo-500/30">
-                <div className="w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden relative">
+                <div className="w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden relative animate-fade-in-up">
 
                     {/* Background decoration */}
                     <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-600/10 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
@@ -195,7 +195,7 @@ export default function CreateUser() {
                                 <input name="preferredLocations" placeholder="Remote, New York, London" className={inputStyle} onChange={handleChange} />
                             </div>
                             <div>
-                                <label className={labelStyle}>Expected Salary ($)</label>
+                                <label className={labelStyle}>Expected Salary (₹)</label>
                                 <input name="expectedSalary" type="number" placeholder="80000" className={inputStyle} onChange={handleChange} />
                             </div>
                             <div>
