@@ -12,14 +12,15 @@ export const findMatches = async (user: IUser): Promise<IJob[]> => {
     const scoredJobs = allJobs.map((job) => {
         let score = 0;
 
+        const userSkills = user.skills || [];
         const skillOverlap = job.requiredSkills.filter((skill) =>
-            user.skills.map(s => s.toLowerCase()).includes(skill.toLowerCase())
+            userSkills.map(s => s.toLowerCase()).includes(skill.toLowerCase())
         ).length;
 
         const skillMatchRatio = job.requiredSkills.length > 0 ? skillOverlap / job.requiredSkills.length : 0;
         score += skillMatchRatio * 30;
 
-        if (user.experience >= job.minExperience) {
+        if ((user.experience || 0) >= job.minExperience) {
             score += 20;
         }
 
