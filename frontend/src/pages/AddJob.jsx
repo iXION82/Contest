@@ -19,8 +19,18 @@ export default function AddJob() {
     e.preventDefault();
     setIsSubmitting(true);
 
+    const userStr = localStorage.getItem("user");
+    if (!userStr) {
+      alert("Please login as a company first");
+      navigate("/login");
+      return;
+    }
+    const user = JSON.parse(userStr);
+
     const payload = {
       ...form,
+      companyEmail: user.email,
+      companyPassword: user.password,
       requiredSkills: form.requiredSkills.split(",").map(s => s.trim()),
       minExperience: Number(form.minExperience),
       salary: Number(form.salary),
