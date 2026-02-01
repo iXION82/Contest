@@ -7,5 +7,4 @@ router.post("/create", createUser);
 router.put("/update", updateUser);
 router.get("/:userId/applications", getUserApplications);
 
-
 export default router;

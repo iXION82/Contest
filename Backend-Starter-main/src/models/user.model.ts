@@ -4,6 +4,7 @@ export interface IUser extends Document {
     userId: string;
     name: string;
     email: string;
+    password: string;
     age: number;
     experience: number;
     skills: string[];
@@ -21,6 +22,7 @@ const UserSchema: Schema = new Schema(
         userId: { type: String, required: true, unique: true },
         name: { type: String, required: true },
         email: { type: String, required: true, unique: true },
+        password: { type: String, required: true },
         age: { type: Number, required: true },
         experience: { type: Number, required: true },
         skills: { type: [String], required: true },

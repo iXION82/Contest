@@ -104,4 +104,24 @@ export const getJobApplicants = async (req: Request, res: Response) => {
     }
 };
 
+export const getCompanyJobs = async (req: Request, res: Response) => {
+    try {
+        const { query } = req.query;
+        if (!query) {
+            return res.status(400).json({ message: "Query parameter (email or company name) is required" });
+        }
+
+        const jobs = await Job.find({
+            $or: [
+                { companyEmail: query },
+                { company: query }
+            ]
+        });
+
+        res.status(200).json({ jobs });
+    } catch (error: any) {
+        res.status(500).json({ message: "Error fetching company jobs", error: error.message });
+    }
+};
+
 
