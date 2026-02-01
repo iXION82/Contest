@@ -7,7 +7,7 @@ export default function AddJob() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [form, setForm] = useState({
-    jobId: "", title: "", company: "", requiredSkills: "",
+    title: "", company: "", requiredSkills: "",
     minExperience: "", location: "", salary: "",
     jobType: "", description: ""
   });
@@ -42,13 +42,13 @@ export default function AddJob() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 p-4 md:p-8">
       <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
+
         {/* Left Sidebar: Instructions */}
         <div className="lg:col-span-1 space-y-6">
           <div className="bg-indigo-600/10 border border-indigo-500/20 p-6 rounded-2xl">
             <h2 className="text-2xl font-bold text-white mb-4">Post a New Opening</h2>
             <p className="text-slate-400 text-sm leading-relaxed">
-              Fill in the details to reach thousands of qualified candidates. 
+              Fill in the details to reach thousands of qualified candidates.
               Be as descriptive as possible in the requirements section for better matching.
             </p>
             <ul className="mt-6 space-y-3 text-sm text-indigo-300">
@@ -62,17 +62,14 @@ export default function AddJob() {
         {/* Right Side: Form */}
         <form onSubmit={handleSubmit} className="lg:col-span-2 bg-slate-900/50 border border-slate-800 p-8 rounded-2xl shadow-xl space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            
+
             {/* Job Identity */}
             <div className="md:col-span-2 flex items-center gap-4 mb-2">
               <div className="h-8 w-1 bg-indigo-500 rounded-full"></div>
               <h3 className="text-lg font-bold text-white">Job Details</h3>
             </div>
 
-            <div>
-              <label className={labelStyle}>Internal Job ID</label>
-              <input name="jobId" placeholder="e.g. ENG-2024-01" className={inputStyle} onChange={handleChange} required />
-            </div>
+
 
             <div>
               <label className={labelStyle}>Job Title</label>
@@ -117,20 +114,20 @@ export default function AddJob() {
 
             <div className="md:col-span-2">
               <label className={labelStyle}>Job Description</label>
-              <textarea 
-                name="description" 
+              <textarea
+                name="description"
                 rows="4"
-                placeholder="Describe the role, responsibilities, and day-to-day tasks..." 
-                className={`${inputStyle} resize-none`} 
-                onChange={handleChange} 
-                required 
+                placeholder="Describe the role, responsibilities, and day-to-day tasks..."
+                className={`${inputStyle} resize-none`}
+                onChange={handleChange}
+                required
               />
             </div>
           </div>
 
           <div className="flex justify-end pt-4">
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               disabled={isSubmitting}
               className="group flex items-center gap-2 px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-indigo-500/20 active:scale-95 disabled:opacity-50"
             >

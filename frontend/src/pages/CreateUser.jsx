@@ -37,8 +37,8 @@ export default function CreateUser() {
         };
 
         try {
-            const userData = await createUser(payload);
-            localStorage.setItem("userId", userData._id);
+            const res = await createUser(payload);
+            localStorage.setItem("userId", res.data._id);
 
             alert("Profile created & saved successfully!");
             navigate("/recommend");

@@ -21,7 +21,7 @@ export default function ProviderDashboard() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 p-6 md:p-12">
       <div className="max-w-7xl mx-auto">
-        
+
         {/* Header & Main Action */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
@@ -32,7 +32,7 @@ export default function ProviderDashboard() {
               Manage your active listings and track candidate engagement.
             </p>
           </div>
-          
+
           <Link to="/provider/add">
             <button className="flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-indigo-500/20 active:scale-95">
               <span className="text-xl">+</span> Post New Job
@@ -69,13 +69,13 @@ export default function ProviderDashboard() {
         ) : jobs.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {jobs.map((job) => (
-              <div key={job.jobId} className="relative group">
+              <div key={job._id} className="relative group">
                 <JobCard job={job} />
-                
+
                 {/* Overlay Action for Provider */}
                 <div className="mt-3 flex gap-2">
-                  <button 
-                    onClick={() => navigate(`/applicants/${job.jobId}`)}
+                  <button
+                    onClick={() => navigate(`/applicants/${job._id}`)}
                     className="flex-1 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold rounded-lg border border-slate-700 transition-colors"
                   >
                     View Applicants
