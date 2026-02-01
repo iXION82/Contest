@@ -2,15 +2,18 @@ import { useEffect, useState } from "react";
 import { recommendJobs, applyJob } from "../api/job.api";
 import JobCard from "../components/JobCard";
 import Navbar from "../components/Navbar";
+import AnimatedPopup from "../components/AnimatedPopup";
+
 export default function RecommendedJobs() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [popup, setPopup] = useState(null); // { message, type }
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     if (!userId || userId === "undefined") {
-      alert("Please create a profile first to get recommendations.");
-      window.location.href = "/create";
+      setPopup({ message: "Please create a profile first to get recommendations.", type: "error" });
+      setTimeout(() => { window.location.href = "/create"; }, 2000);
       return;
     }
 
@@ -29,11 +32,40 @@ export default function RecommendedJobs() {
   const handleApply = async (jobId) => {
     try {
       await applyJob(userId, jobId);
-      alert("Application successful!");
+
+      // Show success popup
+      setPopup({ message: "Application submitted successfully!", type: "success" });
+
+      // Rerender/Update State: Remove the job from the list to reflect "applied" status
+      setJobs((prevJobs) => prevJobs.filter(job => job._id !== jobId));
+
     } catch (err) {
       console.log(err);
-      alert("Error applying for this recommendation.");
+      setPopup({ message: "Error applying for this recommendation.", type: "error" });
     }
+  };
+
+  const handleApplyAll = async () => {
+    if (!window.confirm(`Are you sure you want to apply to ${jobs.length} jobs?`)) return;
+
+    let successCount = 0;
+    const failedIds = [];
+
+    // Optimistic update or wait? Let's wait to be sure
+    for (const job of jobs) {
+      try {
+        await applyJob(userId, job._id);
+        successCount++;
+      } catch (e) {
+        console.error(`Failed to apply to ${job._id}`, e);
+        failedIds.push(job._id);
+      }
+    }
+
+    setPopup({ message: `Successfully applied to ${successCount} jobs!`, type: "success" });
+
+    // Update state to remove successfully applied jobs
+    setJobs((prevJobs) => prevJobs.filter(job => failedIds.includes(job._id)));
   };
 
   return (
@@ -41,6 +73,16 @@ export default function RecommendedJobs() {
       <div>
         <Navbar />
       </div>
+
+      {/* Pop Up Notification */}
+      {popup && (
+        <AnimatedPopup
+          message={popup.message}
+          type={popup.type}
+          onClose={() => setPopup(null)}
+        />
+      )}
+
       <div className="min-h-screen bg-slate-950 p-6 md:p-12">
         <div className="max-w-7xl mx-auto">
 
@@ -66,20 +108,7 @@ export default function RecommendedJobs() {
 
             {jobs.length > 0 && !loading && (
               <button
-                onClick={async () => {
-                  if (!window.confirm(`Are you sure you want to apply to ${jobs.length} jobs?`)) return;
-
-                  let successCount = 0;
-                  for (const job of jobs) {
-                    try {
-                      await applyJob(userId, job._id);
-                      successCount++;
-                    } catch (e) {
-                      console.error(`Failed to apply to ${job._id}`, e);
-                    }
-                  }
-                  alert(`Successfully applied to ${successCount} jobs!`);
-                }}
+                onClick={handleApplyAll}
                 className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition-all active:scale-95 flex items-center gap-2"
               >
                 <span>🚀</span> Apply to All {jobs.length} Jobs
@@ -116,9 +145,12 @@ export default function RecommendedJobs() {
               <div className="text-4xl mb-4">🎯</div>
               <h3 className="text-xl font-bold text-white">Refining your matches...</h3>
               <p className="text-slate-500 mt-2 max-w-sm mx-auto">
-                Complete your profile with more skills to see high-quality recommendations here.
+                No new recommendations at the moment, or you've applied to all currently recommended jobs.
               </p>
-              <button className="mt-8 px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-semibold transition-all">
+              <button
+                onClick={() => window.location.href = "/create"}
+                className="mt-8 px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-semibold transition-all"
+              >
                 Update Profile
               </button>
             </div>
