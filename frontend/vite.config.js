@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/jobs": "http://localhost:5000",
-      "/user": "http://localhost:5000",
+      "/usr": "http://localhost:5000",
       "/api": "http://localhost:5000"
     }
   }

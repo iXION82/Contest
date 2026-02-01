@@ -46,7 +46,7 @@ export default function Navbar() {
             <div className="h-6 w-px bg-slate-800 mx-2 hidden sm:block"></div>
             
             <Link 
-              to="/signup" 
+              to="/create" 
               className="ml-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-indigo-500/20 active:scale-95"
             >
               Get Started
