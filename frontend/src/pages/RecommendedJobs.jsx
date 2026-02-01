@@ -45,22 +45,46 @@ export default function RecommendedJobs() {
         <div className="max-w-7xl mx-auto">
 
           {/* Header with AI/Recommendation Context */}
-          <div className="mb-12 relative">
-            <div className="absolute -top-10 -left-10 w-40 h-40 bg-indigo-600/10 blur-[100px] rounded-full"></div>
+          <div className="mb-12 relative flex items-end justify-between">
+            <div>
+              <div className="absolute -top-10 -left-10 w-40 h-40 bg-indigo-600/10 blur-[100px] rounded-full"></div>
 
-            <div className="flex items-center gap-3 mb-2">
-              <span className="px-3 py-1 bg-indigo-500/10 text-indigo-400 text-xs font-bold rounded-full border border-indigo-500/20 uppercase tracking-widest">
-                AI Powered
-              </span>
-              <span className="text-slate-500 text-sm italic">Updated just now</span>
+              <div className="flex items-center gap-3 mb-2">
+                <span className="px-3 py-1 bg-indigo-500/10 text-indigo-400 text-xs font-bold rounded-full border border-indigo-500/20 uppercase tracking-widest">
+                  AI Powered
+                </span>
+                <span className="text-slate-500 text-sm italic">Updated just now</span>
+              </div>
+
+              <h2 className="text-4xl font-extrabold text-white tracking-tight">
+                Recommended <span className="text-indigo-500 underline decoration-indigo-500/20">for You</span>
+              </h2>
+              <p className="text-slate-400 mt-3 text-lg max-w-2xl">
+                We've analyzed your skills and preferences to find the perfect matches for your next career move.
+              </p>
             </div>
 
-            <h2 className="text-4xl font-extrabold text-white tracking-tight">
-              Recommended <span className="text-indigo-500 underline decoration-indigo-500/20">for You</span>
-            </h2>
-            <p className="text-slate-400 mt-3 text-lg max-w-2xl">
-              We've analyzed your skills and preferences to find the perfect matches for your next career move.
-            </p>
+            {jobs.length > 0 && !loading && (
+              <button
+                onClick={async () => {
+                  if (!window.confirm(`Are you sure you want to apply to ${jobs.length} jobs?`)) return;
+
+                  let successCount = 0;
+                  for (const job of jobs) {
+                    try {
+                      await applyJob(userId, job._id);
+                      successCount++;
+                    } catch (e) {
+                      console.error(`Failed to apply to ${job._id}`, e);
+                    }
+                  }
+                  alert(`Successfully applied to ${successCount} jobs!`);
+                }}
+                className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition-all active:scale-95 flex items-center gap-2"
+              >
+                <span>🚀</span> Apply to All {jobs.length} Jobs
+              </button>
+            )}
           </div>
 
           {/* Content Section */}
