@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 import User, { type IUser } from "../models/user.model.js";
+import { TextExtractionService } from "../services/text-extraction.service.js";
+import { LinkExtractionService } from "../services/link-extraction.service.js";
+import { OpenAIService } from "../services/openai.service.js";
 
 
 export const createUser = async (req: Request, res: Response) => {
@@ -85,21 +88,76 @@ export const getUserProfile = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Error fetching profile", error: error.message });
     }
 };
+
 export const parseUserFromFiles = async (
     req: Request,
     res: Response
 ) => {
     try {
+        console.log("parseUserFromFiles called");
+
         const files = req.files as Express.Multer.File[];
         const links = JSON.parse(req.body.links || "[]");
 
-        res.json({
-            message: "Files and links received",
-            filesCount: files?.length || 0,
-            links,
+        let extractedText = "";
+
+        // 1. Extract text from files
+        if (files && files.length > 0) {
+            for (const file of files) {
+                if (file.mimetype === "application/pdf") {
+                    try {
+                        const text = await TextExtractionService.extractTextFromPDF(file.buffer);
+                        extractedText += `\n--- FILE: ${file.originalname} ---\n${text}`;
+                    } catch (e: any) {
+                        console.error(`Failed to parse PDF ${file.originalname}:`, e);
+                        extractedText += `\n--- FILE: ${file.originalname} (ERROR) ---\nFailed to parse PDF: ${e.message}`;
+                    }
+                }
+            }
+        }
+
+        // 2. Extract text from links
+        if (links && Array.isArray(links)) {
+            for (const link of links) {
+                if (typeof link === "string" && link.startsWith("http")) {
+                    try {
+                        const text = await LinkExtractionService.extractTextFromLink(link);
+                        extractedText += `\n--- LINK: ${link} ---\n${text}`;
+                    } catch (e: any) {
+                        console.error(`Failed to parse link ${link}:`, e);
+                    }
+                }
+            }
+        }
+
+        if (!extractedText.trim()) {
+            return res.status(400).json({ error: "No text could be extracted from provided files or links." });
+        }
+
+        // 3. Process with OpenAI
+        console.log("Sending text to OpenAI...", extractedText.length, "chars");
+        const userData = await OpenAIService.parseResume(extractedText);
+        console.log("Parsed User Data:", userData);
+
+        // 4. Save to Database (Create User)
+        const newUser = new User(userData);
+        await newUser.save();
+
+        res.status(201).json({
+            message: "User parsed and created successfully",
+            user: newUser,
+            extractedTextPreview: extractedText.substring(0, 200) + "..."
         });
+
     } catch (err: any) {
-        res.status(400).json({ error: err.message });
+        console.error("Parse error:", err);
+        if (err.code === 11000) {
+            return res.status(409).json({ error: "User with this email already exists." });
+        }
+        res.status(500).json({
+            error: "Parse error",
+            details: err.message,
+            stack: err.stack
+        });
     }
 };
-

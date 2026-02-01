@@ -38,8 +38,10 @@ export const findMatches = async (user: IUser): Promise<IJob[]> => {
             score += 10;
         }
 
-        if (job.salary >= user.expectedSalary) {
-            score += 15;
+        if (user.expectedSalary && job.salary) {
+            if (job.salary >= user.expectedSalary) {
+                score += 15;
+            }
         }
 
         const typeMatch = user.preferredJobTypes.some((type) =>

@@ -1,0 +1,15 @@
+{
+  "LineDirection": {
+    "0": "None",
+    "1": "Horizontal",
+    "2": "Vertical",
+    "None": 0,
+    "Horizontal": 1,
+    "Vertical": 2
+  },
+  "VerbosityLevel": {
+    "ERRORS": 0,
+    "WARNINGS": 1,
+    "INFOS": 5
+  }
+}

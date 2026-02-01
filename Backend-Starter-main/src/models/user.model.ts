@@ -11,7 +11,9 @@ export interface IUser extends Document {
     projectLinks: string[];
     preferredRoles: string[];
     preferredLocations: string[];
-    expectedSalary: number;
+    expectedSalary?: number;
+    jobType?: string; // full-time, part-time, contract
+    location?: string;
     preferredJobTypes: string[];
     appliedJobs: string[];
 }
@@ -28,7 +30,9 @@ const UserSchema: Schema = new Schema(
         projectLinks: { type: [String], default: [] },
         preferredRoles: { type: [String], default: [] },
         preferredLocations: { type: [String], default: [] },
-        expectedSalary: { type: Number, required: true },
+        expectedSalary: { type: Number },
+        jobType: { type: String },
+        location: { type: String },
         preferredJobTypes: { type: [String], default: [] },
         appliedJobs: { type: [String], default: [] },
     },
