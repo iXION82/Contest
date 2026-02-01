@@ -44,7 +44,15 @@ export default function Login() {
       localStorage.setItem("role", form.role);
 
       // Redirect by role
-      navigate(form.role === "company" ? "/provider" : "/jobs");
+      if (form.role === "company") {
+        navigate("/provider");
+      } else {
+        if (userData.isProfileComplete) {
+          navigate("/jobs");
+        } else {
+          navigate("/create");
+        }
+      }
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
     } finally {

@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import ProfileGuard from "./components/ProfileGuard";
 
 import Jobs from "./pages/Jobs";
 import RecommendedJobs from "./pages/RecommendedJobs";
@@ -16,13 +17,14 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         {/*signup login */}
-                <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        {/* User */}
-        <Route path="/" element={<Jobs />} />
-        <Route path="/create" element={<CreateUser />} />
-        <Route path="/recommend" element={<RecommendedJobs />} />
-        <Route path="/applications" element={<Applications />} />
+
+        {/* User - Protected by ProfileGuard */}
+        <Route path="/" element={<ProfileGuard><Jobs /></ProfileGuard>} />
+        <Route path="/create" element={<ProfileGuard><CreateUser /></ProfileGuard>} />
+        <Route path="/recommend" element={<ProfileGuard><RecommendedJobs /></ProfileGuard>} />
+        <Route path="/applications" element={<ProfileGuard><Applications /></ProfileGuard>} />
 
         {/* Provider */}
         <Route path="/provider" element={<ProviderDashboard />} />

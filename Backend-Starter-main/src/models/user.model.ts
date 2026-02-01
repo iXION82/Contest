@@ -16,6 +16,7 @@ export interface IUser extends Document {
     location?: string;
     preferredJobTypes: string[];
     appliedJobs: string[];
+    isProfileComplete: boolean;
 }
 
 const UserSchema: Schema = new Schema(
@@ -35,6 +36,7 @@ const UserSchema: Schema = new Schema(
         location: { type: String },
         preferredJobTypes: { type: [String], default: [] },
         appliedJobs: { type: [String], default: [] },
+        isProfileComplete: { type: Boolean, default: false },
     },
 
     { timestamps: true }

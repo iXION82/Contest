@@ -23,7 +23,14 @@ export default function CreateUser() {
         e.preventDefault();
         setLoading(true);
 
+        const userId = localStorage.getItem("userId");
+        if (!userId) {
+            alert("User ID not found. Please log in again.");
+            return;
+        }
+
         const payload = {
+            userId,
             ...form,
             age: Number(form.age),
             experience: Number(form.experience),
@@ -38,7 +45,14 @@ export default function CreateUser() {
 
         try {
             const res = await updateUser(payload);
-            localStorage.setItem("userId", res.data._id);
+
+            // Update local user data to reflect completion
+            const userStr = localStorage.getItem("user");
+            if (userStr) {
+                const user = JSON.parse(userStr);
+                user.isProfileComplete = true;
+                localStorage.setItem("user", JSON.stringify(user));
+            }
 
             alert("Profile created & saved successfully!");
             navigate("/recommend");
@@ -79,14 +93,6 @@ export default function CreateUser() {
                             <div>
                                 <label className={labelStyle}>Full Name</label>
                                 <input name="name" placeholder="John Doe" className={inputStyle} onChange={handleChange} required />
-                            </div>
-                            <div>
-                                <label className={labelStyle}>Email</label>
-                                <input name="email" type="email" placeholder="john@example.com" className={inputStyle} onChange={handleChange} required />
-                            </div>
-                            <div>
-                                <label className={labelStyle}>Password</label>
-                                <input name="password" type="password" placeholder="••••••••" className={inputStyle} onChange={handleChange} required />
                             </div>
                             <div>
                                 <label className={labelStyle}>Age</label>

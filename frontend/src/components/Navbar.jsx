@@ -8,8 +8,8 @@ export default function Navbar() {
 
   const linkStyle = (path) => `
     text-sm font-medium transition-all duration-200 px-3 py-2 rounded-md
-    ${isActive(path) 
-      ? "text-indigo-400 bg-indigo-500/10" 
+    ${isActive(path)
+      ? "text-indigo-400 bg-indigo-500/10"
       : "text-slate-400 hover:text-white hover:bg-slate-800"
     }
   `;
@@ -18,7 +18,7 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 w-full bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          
+
           {/* Logo / Brand */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-2 group">
@@ -42,15 +42,18 @@ export default function Navbar() {
             <Link to="/applications" className={linkStyle("/applications")}>
               Applications
             </Link>
-            
+
             <div className="h-6 w-px bg-slate-800 mx-2 hidden sm:block"></div>
-            
-            <Link 
-              to="/create" 
-              className="ml-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-indigo-500/20 active:scale-95"
+
+            <button
+              onClick={() => {
+                localStorage.clear();
+                window.location.href = "/login";
+              }}
+              className="ml-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-sm font-semibold rounded-lg transition-all border border-slate-700 active:scale-95"
             >
-              Get Started
-            </Link>
+              Logout
+            </button>
           </div>
 
         </div>

@@ -9,7 +9,7 @@ export const createUser = async (req: Request, res: Response) => {
     try {
         const userData = req.body;
 
-        const newUser = new User(userData);
+        const newUser = new User({ ...userData, isProfileComplete: false });
         await newUser.save();
 
         res.status(201).json({ message: "User created successfully", user: newUser, _id: newUser._id });
@@ -44,7 +44,7 @@ export const updateUser = async (req: Request, res: Response) => {
             return res.status(400).json({ message: "UserId is required for update" });
         }
 
-        const updatedUser = await User.findOneAndUpdate({ userId }, req.body, { new: true });
+        const updatedUser = await User.findOneAndUpdate({ _id: userId }, { ...req.body, isProfileComplete: true }, { new: true });
 
         if (!updatedUser) {
             return res.status(404).json({ message: "User not found" });

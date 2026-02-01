@@ -44,7 +44,7 @@ export default function Signup() {
       localStorage.setItem("userId", res.data._id);
       localStorage.setItem("role", form.role);
 
-      navigate(form.role === "company" ? "/provider" : "/jobs");
+      navigate(form.role === "company" ? "/provider" : "/create");
     } catch (err) {
       alert(err.response?.data?.message || "Signup failed");
     } finally {
