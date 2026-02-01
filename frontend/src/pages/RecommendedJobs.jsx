@@ -76,7 +76,7 @@ export default function RecommendedJobs() {
                 <div key={job._id} className="relative transition-transform duration-300 hover:-translate-y-2">
                   {/* Decorative Match Label */}
                   <div className="absolute -top-3 -right-3 z-10 bg-emerald-500 text-slate-950 text-[10px] font-black px-2 py-1 rounded shadow-lg transform rotate-3">
-                    98% MATCH
+                    {Math.min(Math.round(job.score), 100)}% MATCH
                   </div>
 
                   <JobCard

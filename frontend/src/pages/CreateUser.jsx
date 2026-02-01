@@ -29,9 +29,12 @@ export default function CreateUser() {
             return;
         }
 
+        // Exclude email/password to prevent overwriting/duplicate errors
+        const { email, password, ...profileData } = form;
+
         const payload = {
             userId,
-            ...form,
+            ...profileData,
             age: Number(form.age),
             experience: Number(form.experience),
             totalProjects: Number(form.totalProjects),
