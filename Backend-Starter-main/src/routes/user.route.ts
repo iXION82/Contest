@@ -1,10 +1,11 @@
 import express from "express";
-import { createUser, updateUser, getUserApplications, parseUserFromFiles, getUserProfile } from "../controllers/user.controller.js";
+import { createUser, updateUser, getUserApplications, parseUserFromFiles, getUserProfile, loginUser } from "../controllers/user.controller.js";
 import { upload } from "../middleware/upload.js";
 
 const router = express.Router();
 
 router.post("/create", createUser);
+router.post("/login", loginUser);
 router.put("/update", updateUser);
 router.get("/profile/:id", getUserProfile);
 router.get("/:id/applications", getUserApplications);
