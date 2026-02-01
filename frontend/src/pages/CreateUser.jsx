@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createUser } from "../api/user.api";
+import { updateUser } from "../api/user.api";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
@@ -37,7 +37,7 @@ export default function CreateUser() {
         };
 
         try {
-            const res = await createUser(payload);
+            const res = await updateUser(payload);
             localStorage.setItem("userId", res.data._id);
 
             alert("Profile created & saved successfully!");

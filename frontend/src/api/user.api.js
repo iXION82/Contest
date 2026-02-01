@@ -1,8 +1,6 @@
 import api from "./axios";
 
-// POST /user/create
-export const createUser = (userData) =>
-  api.post("/user/create", userData);
+
 
 // PUT /user/update
 export const updateUser = (userData) =>

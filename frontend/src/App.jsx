@@ -6,7 +6,8 @@ import RecommendedJobs from "./pages/RecommendedJobs";
 import Applications from "./pages/Applications";
 import Applicants from "./pages/Applicants";
 import CreateUser from "./pages/CreateUser";
-
+import Signup from "./pages/signup";
+import Login from "./pages/login";
 import ProviderDashboard from "./pages/ProviderDashboard";
 import AddJob from "./pages/AddJob";
 
@@ -14,6 +15,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/*signup login */}
+                <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
         {/* User */}
         <Route path="/" element={<Jobs />} />
         <Route path="/create" element={<CreateUser />} />
